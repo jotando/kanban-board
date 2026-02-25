@@ -1,4 +1,4 @@
-version: '3'
+#version: '3'
 services:
 
   kanban-postgres:
@@ -33,7 +33,17 @@ services:
       - 4200:80
     links:
       - kanban-app
-
+  angular-dev:
+    build:
+      context: ./kanban-ui
+      dockerfile: Dockerfile.dev
+    ports:
+      - "4300:4200"
+    volumes:
+      - ./kanban-ui:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
 
 volumes:
   kanban-data:
